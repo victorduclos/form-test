@@ -1,23 +1,24 @@
 import { Input } from '../components/form/Input';
-import { Form, useForm, FieldValues } from 'graneet-form';
+import { Form, useForm } from 'graneet-form';
 import { MouseEventHandler } from "react";
 
+type MyForm = {
+  firstName: string;
+
+  lastName: string;
+}
+
 export const SimpleForm = () => {
-  const form = useForm()
+  const form = useForm<MyForm>()
 
   const handleGetValues: MouseEventHandler<HTMLButtonElement> = () => {
-    console.log(form.getFormValues());
-  }
-
-  const handleSubmit: (formValues: FieldValues) => void = (formValues: FieldValues) => {
-    console.log(formValues);
+    const formValues = form.getFormValues();
   }
 
   return (
-    <Form form={form} onSubmit={handleSubmit}>
+    <Form form={form}>
       SimpleForm
-      <Input name="firstName">
-      </Input>
+      <Input<MyForm> name="firstName" />
       <button type="submit" onClick={handleGetValues}>
         Get Values
       </button>
